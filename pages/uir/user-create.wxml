@@ -1,0 +1,36 @@
+<view class="page">
+  <view class="page__hd">
+    <view class="page__title">创建用户</view>
+    <view class="page__desc">
+    </view>
+  </view>
+  <view class="page__bd">
+    <form bindsubmit="submitAdd">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">appId</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input id="appId" class="weui-input" name="appId" />
+          </view>
+        </view>
+
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">userId</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input id="userId" class="weui-input" name="userId" />
+          </view>
+        </view>
+
+      </view>
+
+      <view class="weui-btn-area">
+        <button class="weui-btn" type="primary" form-type="submit">确定</button>
+      </view>
+    </form>
+    <include src="../footer.wxml" />
+  </view>
+</view>

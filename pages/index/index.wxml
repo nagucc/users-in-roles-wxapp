@@ -1,0 +1,16 @@
+<view class="page">
+    <view class="page__hd">
+        <view class="page__title">鉴权平台</view>
+        <view class="page__desc"></view>
+    </view>
+    <view class="page__bd page__bd_spacing">
+        <view class="button-sp-area">
+          <button wx:if="{{isUirManager}}" class="weui-btn" type="default" plain="true" bindtap='toUir'>用户角色管理</button>
+        </view>
+        <view wx:if="{{loadingOpenId}}" class="weui-loadmore">
+            <view class="weui-loading"></view>
+            <view class="weui-loadmore__tips">正在加载</view>
+        </view> 
+    </view>
+    <include src="../footer.wxml" />
+</view>

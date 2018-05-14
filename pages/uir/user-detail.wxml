@@ -1,0 +1,22 @@
+<view class="page">
+  <view class="page__hd">
+    <view class="page__title">{{userId}}</view>
+    <view class="page__desc">在应用【{{appId}}】中</view>
+  </view>
+  <view class="page__bd">
+    
+    
+    <import src="./userId-list-view.wxml" />
+    <template is="userId-list-view" data="{{ ids }}" />
+
+    <import src="./role-list-view.wxml" />
+    <template is="role-list-view" data="{{ roles }}" />
+
+    <view class="weui-btn-area">
+      <button class="weui-btn" type="primary" bindtap="openActionSheet">修改资料</button>
+      <button class="weui-btn" type="warn" bindtap="deleteUserId">删除UserId</button>
+    </view>
+
+    <include src="../footer.wxml" />
+  </view>
+</view>
