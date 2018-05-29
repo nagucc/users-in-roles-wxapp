@@ -22,7 +22,7 @@ Page({
       this.setData({
         appId,
         users: users.map(doc => doc.user[appId]),
-        totleCount: users.length,
+        totalCount: users.length,
       });
     });
   },

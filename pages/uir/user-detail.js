@@ -1,4 +1,4 @@
-const { uirApi } = require('../../utils/util.js');
+const { uirApi, showLoading } = require('../../utils/util.js');
 
 Page({
 
@@ -12,6 +12,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function ({appId, userId}) {
+    showLoading();
     uirApi.getUser(appId, userId).then(uir => {
 
       // 若没找到相应的uir
@@ -36,6 +37,7 @@ Page({
         userId,
         appId,
       });
+      wx.hideLoading();
     });
   },
 
