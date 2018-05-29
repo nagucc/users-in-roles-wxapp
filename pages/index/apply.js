@@ -1,11 +1,18 @@
-const { uirApi } = require('../../utils/util.js');
+const { uirApi, sendVcode } = require('../../utils/util.js');
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-  
+    vcode: {
+      btnClass: 'weui-vcode-btn',
+      btnText: '获取',
+      timer: 0,
+    },
+    submitBtnDisabled: true,
+    mobile: '',
+    sendedCode: '',
   },
 
   /**
@@ -15,8 +22,25 @@ Page({
     this.setData(options);
   },
 
+  mobileInput(e) {
+    this.setData({
+      mobile: e.detail.value,
+    });
+  },
+
   submitAdd(e) {
-    const { appId, userId } = this.data;
+    const { appId, userId, sendedCode } = this.data;
+
+    // 检查验证码是否正确
+    if (sendedCode !== e.detail.value.vcode) {
+      wx.showModal({
+        title: '申请失败',
+        content: '验证码不正确',
+        showCancel: false,
+      });
+      return;
+    }
+
     uirApi.apply(appId, userId, e.detail.value).then(result => {
       wx.showModal({
         title: '申请成功',
@@ -24,6 +48,86 @@ Page({
         showCancel: false,
       });
     });
+  },
+
+  btnSendVcode (e) {
+
+    // 如果已经有计时器在运行，则退出
+    if (this.data.vcode.timer) return;
+
+    // 验证电话号码是否正确
+    const { mobile } = this.data;
+    if (!mobile.match(/^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/)) {
+      wx.showModal({
+        title: '手机号码错误',
+        content: '请填写正确的手机号码',
+        showCancel: false,
+      });
+      return;
+    }
+
+    // 生成验证码
+    const code = [0,0,0,0].reduce((acc, cur) => {
+      console.log(Math.floor(Math.random() * 10))
+      return acc + Math.floor(Math.random()*10);
+    }, '');
+
+    // 保存验证码
+    this.setData({
+      sendedCode: code,
+    });
+
+    // 发送验证码
+    sendVcode(mobile, code).then(result => {
+      // 发送成功
+      wx.showToast({
+        title: '发送成功',
+      });
+    }).catch(err => {
+      // 发送失败，可能原因是手机号码不对
+      wx.showModal({
+        title: '发送验证码失败',
+        content: err.errmsg || err.msg,
+        showCancel: false,
+      });
+      this.setData({
+        vcode: {
+          timer: 0,
+        },
+      });
+    });
+
+    console.log(code);
+
+    // 设置倒计时
+    const countDown = timer => {
+      const setVcodeView = () => {
+        if (timer) {
+          this.setData({
+            vcode: {
+              timer,
+              btnText: `重新获取(${timer})`,
+              btnClass: 'weui-vcode-btn-disabled',
+            }
+          });
+        } else {
+          this.setData({
+            vcode: {
+              timer,
+              btnText: `重新获取`,
+              btnClass: 'weui-vcode-btn',
+            }
+          });
+        }
+      };
+
+      setVcodeView();
+      setTimeout(() => {
+        setVcodeView();
+        if (timer) countDown(timer -1 );
+      }, 1000);
+    }
+    countDown(60);
   },
 
   /**
