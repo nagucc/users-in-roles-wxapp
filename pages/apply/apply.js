@@ -25,26 +25,41 @@ Page({
   mobileInput(e) {
     this.setData({
       mobile: e.detail.value,
+      sendedCode: '', // 手机号码一旦变化，之前发送的验证码就失效。
     });
   },
 
   submitAdd(e) {
     const { appId, userId, sendedCode } = this.data;
+    const formData = e.detail.value;
+    console.log(formData);
 
-    // 检查验证码是否正确
-    if (sendedCode !== e.detail.value.vcode) {
+    // 数据校验
+    let error = '';
+    if (sendedCode !== e.detail.value.vcode) error = '验证码不正确'; // 检查验证码是否正确
+    if (!formData.vcode) error = '请输入验证码';
+    if (!formData.mobile.match(/^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/)) error = '请输入正确的手机号';
+    if (!formData.name) error = '请输入姓名';
+
+    if (error) {
       wx.showModal({
         title: '申请失败',
-        content: '验证码不正确',
+        content: error,
         showCancel: false,
       });
       return;
     }
 
+    wx.showLoading({
+      title: '正在加载',
+      mask: true,
+    });
+
     uirApi.apply(appId, userId, e.detail.value).then(result => {
+      wx.hideLoading();
       wx.showModal({
         title: '申请成功',
-        content: '您是申请已提交，请耐心等待审核。',
+        content: '您是申请已提交，请关闭小程序并耐心等待审核。',
         showCancel: false,
       });
     });

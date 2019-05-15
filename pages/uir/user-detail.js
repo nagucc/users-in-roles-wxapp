@@ -130,7 +130,7 @@ Page({
             wx.navigateTo({
               url: `/pages/uir/user-list?appId=${appId}`,
             });
-          })
+          });
           
         }
       },

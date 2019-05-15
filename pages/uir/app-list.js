@@ -21,6 +21,8 @@ Page({
         apps,
         totalCount: apps.length,
       });
+    }).catch(err => {
+      wx.hideLoading();
     });
   },
 

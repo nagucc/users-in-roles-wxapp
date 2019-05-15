@@ -1,21 +1,21 @@
 {
   "pages": [
-    
     "pages/index/index",
     "pages/index/error",
-    "pages/index/apply",
+    "pages/apply/apply",
     "pages/uir/app-list",
     "pages/uir/role-edit",
     "pages/uir/user-edit",
     "pages/uir/user-detail",
     "pages/uir/user-create",
-    "pages/uir/user-list"
-    
+    "pages/uir/user-list",
+    "pages/apply/list"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "纳谷鉴权平台",
     "navigationBarTextStyle": "black"
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

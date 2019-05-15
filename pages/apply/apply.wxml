@@ -12,7 +12,7 @@
             <view class="weui-label">应用名称</view>
           </view>
           <view class="weui-cell__bd">
-            <input value="{{appName}}" id="appName" class="weui-input" name="appName" />
+            <input value="{{appName}}" disabled="true" id="appName" class="weui-input" name="appName" />
           </view>
         </view>
 
@@ -51,7 +51,7 @@
             <view class="weui-label">备注</view>
           </view>
           <view class="weui-cell__bd">
-            <input value="{{remark}}" id="remark" class="weui-input" name="remark" />
+            <input value="{{remark}}" id="remark" class="weui-input" name="remark" placeholder="写清楚拟申请哪些权限" />
           </view>
         </view>
 

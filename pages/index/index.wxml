@@ -6,6 +6,7 @@
     <view class="page__bd page__bd_spacing">
         <view class="button-sp-area">
           <button wx:if="{{isUirManager}}" class="weui-btn" type="default" plain="true" bindtap='toUir'>用户角色管理</button>
+          <button wx:if="{{isUirManager}}" class="weui-btn" type="default" plain="true" bindtap='toApplyList'>权限申请审批</button>
         </view>
         <view wx:if="{{loadingOpenId}}" class="weui-loadmore">
             <view class="weui-loading"></view>

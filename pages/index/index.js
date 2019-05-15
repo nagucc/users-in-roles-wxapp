@@ -17,7 +17,7 @@ Page({
             loadingOpenId: false,
           });
           wx.redirectTo({
-            url: `/pages/index/apply?appId=${appId}&userId=${openid}&appName=鉴权平台`,
+            url: `/pages/apply/apply?appId=${appId}&userId=${openid}&appName=鉴权平台`,
           });
         } else {
           this.setData({
@@ -35,6 +35,11 @@ Page({
   toUir: () => {
     wx.navigateTo({
       url: '/pages/uir/app-list',
+    });
+  },
+  toApplyList: () => {
+    wx.navigateTo({
+      url: '/pages/apply/list',
     });
   },
 });
